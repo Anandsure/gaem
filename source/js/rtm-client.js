@@ -10,7 +10,8 @@ M.AutoInit();
 const client = AgoraRTM.createInstance(agoraAppId, { enableLogUpload: false });
 
 // Form Click Event
-$("#joinChannelBtn").click(function () {
+$("#joinChannelBtn").click(function() {
+    console.log("reched here");
     var accountName = $('#accountName').val();
 
     // Login
@@ -28,10 +29,10 @@ $("#joinChannelBtn").click(function () {
             $("#sendMsgBtn").prop("disabled", false);
 
             // Close Channel Join Modal
-            $("#joinChannelModal").modal('close');
+            $("#enterDeets").modal('close');
 
             // Send Channel Message
-            $("#sendMsgBtn").click(function () {
+            $("#sendMsgBtn").click(function() {
                 singleMessage = $('#channelMsg').val();
                 channel.sendMessage({ text: singleMessage }).then(() => {
                     console.log("Message sent successfully.");
@@ -58,7 +59,7 @@ $("#joinChannelBtn").click(function () {
 });
 
 // Show Form on Page Load
-$(document).ready(function () {
+$(document).ready(function() {
     $('#joinChannelModal').modal();
     $("#joinChannelModal").modal('open');
 });

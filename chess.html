@@ -87,6 +87,28 @@
   </g>
 </svg>
     <!-- partial -->
+
+
+    <div class="modal fade" id="enterDeets" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <!-- Channel Join Modal -->
+
+            <div class="modal-content">
+                <h4 class="center">Join Channel</h4>
+                <label for="accountName">User Name</label>
+                <input type="text" placeholder="User Name" id="accountName" />
+                <label for="channelNameInput">Channel Name</label>
+                <input type="text" placeholder="Channel Name" id="channelNameInput" />
+            </div>
+            <div class="modal-footer">
+                <button id="joinChannelBtn" class="modal-close btn waves-effect">Start</button>
+            </div>
+
+
+        </div>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="./source/js/script.js"></script>
@@ -96,29 +118,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/agora-rtm-sdk@1.3.1/index.js"></script>
     <script src="./source/js/rtm-client.js"></script>
-
-    <div class="modal fade" id="enterDeets" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Let's get you setup</h4>
-                </div>
-                <div class="modal-body">
-                    <label for="accountName">Username</label>
-                    <input type="text" placeholder="User Name" id="accountName" />
-                    <label for="channelNameInput">enter a code</label>
-                    <input type="text" placeholder="Channel Name" id="channelNameInput" />
-                </div>
-                <div class="modal-footer">
-                    <button id="joinChannelBtn" class="modal-close btn waves-effect">Start!</button>
-                </div>
-            </div>
-
-        </div>
-
 </body>
 
 </html>
