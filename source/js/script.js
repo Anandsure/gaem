@@ -39,8 +39,7 @@ class Utils {
                     _moves: parseInt(moves),
                     _promoted: promoted,
                 };
-            }
-            else {
+            } else {
                 const moved = string.length >= 4;
                 const id = string.slice(0, 2);
                 const col = string.charAt(moved ? 2 : 0);
@@ -52,8 +51,7 @@ class Utils {
         for (let id in positions) {
             if (overrides[id]) {
                 positions[id] = overrides[id];
-            }
-            else {
+            } else {
                 positions[id] = defaultPositionMode ? positions[id] : { active: false };
             }
         }
@@ -282,8 +280,7 @@ class Constraints {
             const value = Constraints.relationshipToTile(location, args);
             if (value === "BLANK") {
                 moves.push(location);
-            }
-            else if (value === "ENEMY") {
+            } else if (value === "ENEMY") {
                 captures.push(location);
             }
         });
@@ -307,8 +304,7 @@ class Constraints {
             const value = Constraints.relationshipToTile(location, args);
             if (value === "BLANK") {
                 moves.push(location);
-            }
-            else if (value === "ENEMY") {
+            } else if (value === "ENEMY") {
                 captures.push(location);
             }
         });
@@ -343,8 +339,7 @@ class Constraints {
             const enPassantCaptureRelationship = Constraints.relationshipToTile(enPassant, args);
             if (standardCaptureRelationship === "ENEMY") {
                 captures.push(location);
-            }
-            else if (piece.moves.length > 0 && enPassantCaptureRelationship === "ENEMY") {
+            } else if (piece.moves.length > 0 && enPassantCaptureRelationship === "ENEMY") {
                 const enPassantRow = enPassant.row === (piece.playerWhite() ? "5" : "4");
                 const other = Constraints.locationToPiece(enPassant, args);
                 if (enPassantRow && other && other.data.type === "PAWN") {
@@ -385,8 +380,7 @@ class Constraints {
         const occupying = Constraints.locationToPiece(location, args);
         if (occupying) {
             return occupying.data.player === piece.data.player ? "FRIEND" : "ENEMY";
-        }
-        else {
+        } else {
             return "BLANK";
         }
     }
@@ -400,17 +394,14 @@ class Constraints {
             if (relations === "ENEMY") {
                 response.captures.push(location);
                 abort = true;
-            }
-            else if (relations === "FRIEND") {
+            } else if (relations === "FRIEND") {
                 abort = true;
-            }
-            else {
+            } else {
                 response.moves.push(location);
             }
             if (abort) {
                 location = undefined;
-            }
-            else {
+            } else {
                 location = locationFunction(inc++, piecePositions);
             }
         }
@@ -511,8 +502,7 @@ class Board {
         for (let id in pieces) {
             if (pieces[id].playerWhite()) {
                 this.pieceIdsWhite.push(id);
-            }
-            else {
+            } else {
                 this.pieceIdsBlack.push(id);
             }
         }
@@ -562,8 +552,7 @@ class Board {
                     if (this.state[row][col]) {
                         canCastle = false;
                         // each tile cant be in the path of the other team
-                    }
-                    else if (moves[row][col].length) {
+                    } else if (moves[row][col].length) {
                         canCastle = false;
                     }
                 });
@@ -633,8 +622,7 @@ class Board {
             const capturedId = state[loc.row][loc.col];
             if (this.pieces[capturedId].data.type === "KING") {
                 // this is a checking move
-            }
-            else {
+            } else {
                 delete piecePositions[capturedId].col;
                 delete piecePositions[capturedId].row;
                 piecePositions[capturedId].active = false;
@@ -679,8 +667,7 @@ class Board {
                 if (id !== pos || moves > 0) {
                     positionsDefaults.push(`${promotedCode}${id}${pos}${movesCode}`);
                 }
-            }
-            else {
+            } else {
                 if (id !== "BQ" && id !== "WQ") {
                     positionsDefaults.push(`${promotedCode}${id}X`);
                 }
@@ -708,8 +695,7 @@ class Game {
             this.active = null;
             return { type: "INVALID" };
             // a piece is active rn
-        }
-        else if (this.active) {
+        } else if (this.active) {
             const activePieceId = this.active.data.id;
             this.active = null;
             const validatedPosition = this.activePieceOptions.find((option) => option.col === location.col && option.row === location.row);
@@ -722,8 +708,7 @@ class Game {
                 // cancelling the selected piece on invalid location
                 if (capturedPieceId === activePieceId) {
                     return { type: "CANCEL" };
-                }
-                else if (positionIsValid) {
+                } else if (positionIsValid) {
                     // capturing the selected piece
                     this.capture(activePieceId, capturedPieceId, location);
                     return {
@@ -733,21 +718,17 @@ class Game {
                         captures: [location],
                     };
                     // cancel
-                }
-                else if (capturePiece.data.player !== this.turn) {
+                } else if (capturePiece.data.player !== this.turn) {
                     return { type: "CANCEL" };
-                }
-                else {
+                } else {
                     // proceed to TOUCH or CANCEL
                 }
-            }
-            else if (positionIsValid) {
+            } else if (positionIsValid) {
                 // moving will return castled if that happens (only two move)
                 const castledId = this.move(activePieceId, location);
                 return { type: "MOVE", activePieceId, moves: [location], castledId };
                 // invalid spot. cancel.
-            }
-            else {
+            } else {
                 return { type: "CANCEL" };
             }
         }
@@ -763,8 +744,7 @@ class Game {
             this.activePieceOptions = moves.concat(captures);
             return { type: "TOUCH", captures, moves, activePieceId: tilePieceId };
             // cancelling
-        }
-        else {
+        } else {
             this.activePieceOptions = [];
             return { type: "CANCEL" };
         }
@@ -792,8 +772,7 @@ class Game {
             castled.move(this.moveIndex);
             this.board.pieceMove(castled, { col: location.col === "C" ? "D" : "F", row: location.row });
             this.moves.push(`${pieceId}O${location.col}${location.row}`);
-        }
-        else {
+        } else {
             this.moves.push(`${pieceId}${capture ? "x" : ""}${location.col}${location.row}`);
         }
         this.moveIndex++;
@@ -834,13 +813,11 @@ class Game {
             if (this.activePieceOptions.length) {
                 const { col, row } = this.activePieceOptions[Math.floor(Math.random() * this.activePieceOptions.length)];
                 return { col, row };
-            }
-            else {
+            } else {
                 const { col, row } = this.board.piecePositions[this.active.data.id];
                 return { col, row };
             }
-        }
-        else {
+        } else {
             const ids = this.turn === "WHITE" ? this.board.pieceIdsWhite : this.board.pieceIdsBlack;
             const positions = ids.map((pieceId) => {
                 const moves = this.board.piecesTilesMoves[pieceId];
@@ -882,8 +859,7 @@ class View {
         this.element.classList.remove(other);
         if (moves.length) {
             this.element.classList.add("touching");
-        }
-        else {
+        } else {
             this.element.classList.remove("touching");
         }
         const key = (row, col) => `${row}-${col}`;
@@ -915,8 +891,7 @@ class View {
                     piece.updateShape = false;
                     pieceElement.innerHTML = piece.shape();
                 }
-            }
-            else {
+            } else {
                 tileElement.classList.remove("occupied");
             }
         });
@@ -949,22 +924,18 @@ class View {
             const enPassant = captures.find((capture) => !!capture.capture);
             const passingMoves = enPassant ? moves.concat([enPassant]) : moves;
             this.drawPiecePositions(passingMoves, this.game.board.pieces[activePieceId].shape());
-        }
-        else {
+        } else {
             this.drawPiecePositions();
         }
         if (type === "CANCEL" || type === "INVALID") {
             return;
         }
-        if (type === "MOVE" || type === "CAPTURE") {
-        }
-        else {
+        if (type === "MOVE" || type === "CAPTURE") {} else {
             this.drawActivePiece(activePieceId);
         }
         if (type === "TOUCH") {
             this.drawPositions(moves, captures);
-        }
-        else if (type === "CAPTURE") {
+        } else if (type === "CAPTURE") {
             this.drawCapturedPiece(capturedPieceId);
         }
         // crazy town
