@@ -8,11 +8,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="./source/css/style.css">
 
+
 </head>
 
 <body>
     <!-- partial:index.partial.html -->
-    <section id="view">
+    <section style="padding-left: 4% ;position: fixed;">
+        <div>
+            <label for="channelMsg">Channel Message</label>
+            <br>
+            <textarea placeholder="Type your message here.." id="channelMsg"></textarea>
+            <br>
+            <button id="sendMsgBtn" class="btn waves-effect">Send Message</button>
+        </div>
+        <div id="messageBox">
+            <h5><b>Channel Name:</b> <span id="channelNameBox"></span></h5>
+        </div>
+    </section>
+    <section id="view" style="left: 20%;">
         <aside>
             <!-- <div>
                 <h3 title="Autoplay">Auto</h3>
@@ -69,6 +82,10 @@
 </svg>
     <!-- partial -->
     <script src="./source/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/agora-rtm-sdk@1.3.1/index.js"></script>
+    <script src="./source/js/rtm-client.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/agora-rtm-sdk@1.3.1/index.js"></script>
+    <script src="source/js/rtm-client.js"></script>
 
 </body>
 
