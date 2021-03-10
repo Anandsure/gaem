@@ -777,10 +777,11 @@ class Game {
         }
         this.moveIndex++;
         this.board.pieceMove(piece, location);
+        console.log("this is: ", piece);
         this.turn = this.turn === "WHITE" ? "BLACK" : "WHITE";
         this.board.piecesUpdate(this.moveIndex);
         const state = this.moveResultState();
-        console.log(state);
+        // console.log(state);
         if (!state.moves && !state.captures) {
             alert(state.stalemate ? "Stalemate!" : `${this.turn === "WHITE" ? "Black" : "White"} Wins!`);
         }
@@ -841,6 +842,7 @@ class View {
     }
     drawActivePiece(activePieceId) {
         const { row, col } = this.game.board.piecePositions[activePieceId];
+        // console.log("this is:", this.game.board.piecePositions[activePieceId]);
         this.tiles[row][col].classList.add("highlight-active");
         this.pieces[activePieceId].classList.add("highlight-active");
     }
@@ -911,6 +913,7 @@ class View {
             this.tiles[row][col].classList.add("highlight-capture");
             (_b = this.pieces[(_a = this.game.board.tileFind({ row, col })) === null || _a === void 0 ? void 0 : _a.data.id]) === null || _b === void 0 ? void 0 : _b.classList.add("highlight-capture");
         });
+        // console.log("moves is:", moves);
     }
     drawResetClassNames() {
         document.querySelectorAll(".highlight-active").forEach((element) => element.classList.remove("highlight-active"));
@@ -927,6 +930,7 @@ class View {
         } else {
             this.drawPiecePositions();
         }
+        console.log(type);
         if (type === "CANCEL" || type === "INVALID") {
             return;
         }
@@ -992,6 +996,16 @@ class Control {
         this.view.setPerspective(this.inputPerspectiveBlack.checked ? "BLACK" : "WHITE");
     }
 }
+class move1 {
+    constructor(pieces, piecePositions) {
+        this.board = new Board(pieces, piecePositions);
+    }
+    makemove() {
+        const x = { "moves": [0], "promoted": false, "updateShape": false, "data": { "id": "D2", "player": "WHITE", "type": "PAWN" } };
+        const y = { row: "4", col: "D" };
+        this.board.pieceMove(x, y);
+    }
+}
 const DEMOS = {
     castle1: "XD8B3,B1X,C1X,D1X,F1X,G1X",
     castle2: "XD8B3,B1X,C1X,C2X,D1X,F1X,G1X",
@@ -1006,6 +1020,8 @@ const initialPositions = Utils.getInitialPiecePositions();
 // const initialPositions = Utils.getPositionsFromShortCode(DEMOS.castle1);
 const initialTurn = "WHITE";
 const perspective = "WHITE";
+const xyz = new move1(Utils.getInitialPieces(), initialPositions);
+xyz.makemove();
 const game = new Game(Utils.getInitialPieces(), initialPositions, initialTurn);
 const view = new View(document.getElementById("board"), game, perspective);
 const control = new Control(game, view);

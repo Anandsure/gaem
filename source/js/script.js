@@ -781,7 +781,7 @@ class Game {
         this.turn = this.turn === "WHITE" ? "BLACK" : "WHITE";
         this.board.piecesUpdate(this.moveIndex);
         const state = this.moveResultState();
-        console.log(state);
+        // console.log(state);
         if (!state.moves && !state.captures) {
             alert(state.stalemate ? "Stalemate!" : `${this.turn === "WHITE" ? "Black" : "White"} Wins!`);
         }
@@ -827,6 +827,7 @@ class Game {
             }).filter((position) => position === null || position === void 0 ? void 0 : position.active);
             const remaining = positions[Math.floor(Math.random() * positions.length)];
             const { col, row } = remaining || { col: "E", row: "1" };
+            console.log({ col, row });
             return { col, row };
         }
     }
@@ -986,6 +987,7 @@ class Control {
             return;
         }
         const position = this.game.randomMove();
+        console.log("hellu", position);
         this.view.handleTileClick(position);
         setTimeout(this.autoplay.bind(this), this.speed);
     }
