@@ -599,6 +599,7 @@ class Board {
         if (piece.data.type === "PAWN" && (location.row === "8" || location.row === "1")) {
             piece.promote();
         }
+        return { piece, location }
     }
     piecesUpdate(moveIndex) {
         this.tilesPiecesBlackCaptures = Utils.getInitialBoardState(() => []);
@@ -1001,8 +1002,8 @@ class move1 {
         this.board = new Board(pieces, piecePositions);
     }
     makemove() {
-        const x = { "moves": [0], "promoted": false, "updateShape": false, "data": { "id": "D2", "player": "WHITE", "type": "PAWN" } };
-        const y = { row: "4", col: "D" };
+        const x = { "moves": [0], "promoted": false, "updateShape": false, "data": { "id": "G1", "player": "WHITE", "type": "PAWN" } };
+        const y = { row: "3", col: "F" };
         this.board.pieceMove(x, y);
     }
 }

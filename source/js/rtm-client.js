@@ -33,6 +33,7 @@ $("#joinChannelBtn").click(function() {
 
             // Send Channel Message
             $("#sendMsgBtn").click(function() {
+                console.log(pi, locc);
                 singleMessage = $('#channelMsg').val();
                 channel.sendMessage({ text: singleMessage }).then(() => {
                     console.log("Message sent successfully.");
@@ -74,3 +75,23 @@ function leaveChannel() {
     $("#joinChannelModal").modal('open');
     console.log("Channel left successfully and user has been logged out.");
 }
+
+function getdeets(x, y) {
+    pi = x;
+    locc = y
+}
+var pi, locc;
+
+class linkBoth {
+    constructor(pieces, piecePositions) {
+        this.board = new Board(pieces, piecePositions);
+    }
+    makemoves(xid, location) {
+        // const x = { "moves": [0], "promoted": false, "updateShape": false, "data": { "id": "G1", "player": "WHITE", "type": "PAWN" } };
+        // const y = { row: "3", col: "F" };
+        const x = this.board.pieces[xid];
+        this.board.pieceMove(x, location);
+    }
+}
+
+const xyz = new linkBoth(Utils.getInitialPieces(), initialPositions);

@@ -1,3 +1,4 @@
+var location;
 "use strict";
 console.clear();
 let PIECE_DIR_CALC = 0;
@@ -596,10 +597,12 @@ class Board {
         this.state[location.row][location.col] = pieceId;
         this.piecePositions[pieceId].row = location.row;
         this.piecePositions[pieceId].col = location.col;
-        console.log(piece, location, piece.data.type, location.col, location.row);
+        console.log(piece);
+
         if (piece.data.type === "PAWN" && (location.row === "8" || location.row === "1")) {
             piece.promote();
         }
+        getdeets(piece, location);
     }
     piecesUpdate(moveIndex) {
         this.tilesPiecesBlackCaptures = Utils.getInitialBoardState(() => []);
@@ -727,7 +730,12 @@ class Game {
             } else if (positionIsValid) {
                 // moving will return castled if that happens (only two move)
                 const castledId = this.move(activePieceId, location);
-                return { type: "MOVE", activePieceId, moves: [location], castledId };
+                return {
+                    type: "MOVE",
+                    activePieceId,
+                    moves: [],
+                    castledId
+                };
                 // invalid spot. cancel.
             } else {
                 return { type: "CANCEL" };
