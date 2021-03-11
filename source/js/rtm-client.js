@@ -73,7 +73,11 @@ $("#joinChannelBtn").click(function() {
                 // Receive Channel Message
                 channel.on('ChannelMessage', (msg, senderId) => {
                     console.log("Message received successfully.");
-                    console.log(msg);
+                    var xyz = JSON.parse(msg['text']);
+                    // console.log(xyz);
+                    var pie = xyz["piece"];
+                    var loca = xyz["location"];
+                    console.log(pie, loca);
                 });
             });
 
