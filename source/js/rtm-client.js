@@ -51,6 +51,22 @@ $("#joinChannelBtn").click(function() {
                 });
             });
 
+            $("#updatemove").click(function() {
+                console.log(pi, locc);
+                var to_send = String(pi) + "," + String(locc);
+                channel.sendMessage({ text: to_send }).then(() => {
+                    console.log("Message sent successfully.");
+                }).catch(error => {
+                    console.log("Message wasn't sent due to an error: ", error);
+                });
+
+                // Receive Channel Message
+                channel.on('ChannelMessage', ({ text }, senderId) => {
+                    console.log("Message received successfully.");
+                    console.log(text);
+                });
+            });
+
         }).catch(error => {
             console.log('AgoraRTM client channel join failed: ', error);
         }).catch(err => {
@@ -89,7 +105,6 @@ class linkBoth {
     makemoves(xid, location) {
         // const x = { "moves": [0], "promoted": false, "updateShape": false, "data": { "id": "G1", "player": "WHITE", "type": "PAWN" } };
         // const y = { row: "3", col: "F" };
-        const x = this.board.pieces[xid];
         this.board.pieceMove(x, location);
     }
 }
