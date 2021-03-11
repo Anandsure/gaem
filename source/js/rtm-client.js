@@ -53,17 +53,27 @@ $("#joinChannelBtn").click(function() {
 
             $("#updatemove").click(function() {
                 console.log(pi, locc);
-                var to_send = String(pi) + "," + String(locc);
-                channel.sendMessage({ text: to_send }).then(() => {
+                const jsonMsg = {
+                    piece: pi,
+                    location: locc
+                };
+                // build the Agora RTM Message
+                const msg = {
+                    description: undefined,
+                    messageType: 'TEXT',
+                    rawMessage: undefined,
+                    text: JSON.stringify(jsonMsg)
+                };
+                channel.sendMessage(msg).then(() => {
                     console.log("Message sent successfully.");
                 }).catch(error => {
                     console.log("Message wasn't sent due to an error: ", error);
                 });
 
                 // Receive Channel Message
-                channel.on('ChannelMessage', ({ text }, senderId) => {
+                channel.on('ChannelMessage', (msg, senderId) => {
                     console.log("Message received successfully.");
-                    console.log(text);
+                    console.log(msg);
                 });
             });
 
