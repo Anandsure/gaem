@@ -597,7 +597,7 @@ class Board {
         this.state[location.row][location.col] = pieceId;
         this.piecePositions[pieceId].row = location.row;
         this.piecePositions[pieceId].col = location.col;
-        console.log(piece);
+        console.log(piece, location);
 
         if (piece.data.type === "PAWN" && (location.row === "8" || location.row === "1")) {
             piece.promote();

@@ -602,6 +602,7 @@ class Board {
         return { piece, location }
     }
     piecesUpdate(moveIndex) {
+        console.log(moveIndex);
         this.tilesPiecesBlackCaptures = Utils.getInitialBoardState(() => []);
         this.tilesPiecesBlackMoves = Utils.getInitialBoardState(() => []);
         this.tilesPiecesWhiteCaptures = Utils.getInitialBoardState(() => []);
@@ -610,6 +611,7 @@ class Board {
         this.pieceIdsWhite.forEach((id) => this.pieceCalculateMoves(id, moveIndex, this.state, this.piecePositions, this.piecesTilesCaptures, this.piecesTilesMoves, this.tilesPiecesWhiteCaptures, this.tilesPiecesWhiteMoves, this.resultingChecks.bind(this), this.kingCastles.bind(this)));
         this.checksBlack = this.kingCheckStates(this.piecePositions.E1, this.tilesPiecesBlackCaptures, this.piecePositions);
         this.checksWhite = this.kingCheckStates(this.piecePositions.E8, this.tilesPiecesWhiteCaptures, this.piecePositions);
+        console.log("move end");
     }
     resultingChecks({ piece, location, capture, moveIndex }) {
         const tilesPiecesCaptures = Utils.getInitialBoardState(() => []);
@@ -765,6 +767,7 @@ class Game {
         return `${location.col === "C" ? "A" : "H"}${location.row}`;
     }
     move(pieceId, location, capture = false) {
+        console.log('came heree');
         const piece = this.board.pieces[pieceId];
         const castledId = this.handleCastling(piece, location);
         piece.move(this.moveIndex);
@@ -778,7 +781,7 @@ class Game {
         }
         this.moveIndex++;
         this.board.pieceMove(piece, location);
-        console.log("this is: ", piece);
+        // console.log("this is: ", piece);
         this.turn = this.turn === "WHITE" ? "BLACK" : "WHITE";
         this.board.piecesUpdate(this.moveIndex);
         const state = this.moveResultState();
@@ -914,7 +917,6 @@ class View {
             this.tiles[row][col].classList.add("highlight-capture");
             (_b = this.pieces[(_a = this.game.board.tileFind({ row, col })) === null || _a === void 0 ? void 0 : _a.data.id]) === null || _b === void 0 ? void 0 : _b.classList.add("highlight-capture");
         });
-        // console.log("moves is:", moves);
     }
     drawResetClassNames() {
         document.querySelectorAll(".highlight-active").forEach((element) => element.classList.remove("highlight-active"));
@@ -922,6 +924,7 @@ class View {
         document.querySelectorAll(".highlight-move").forEach((element) => element.classList.remove("highlight-move"));
     }
     handleTileClick(location) {
+        console.log(location);
         const { activePieceId, capturedPieceId, moves = [], captures = [], type } = this.game.activate(location);
         this.drawResetClassNames();
         if (type === "TOUCH") {

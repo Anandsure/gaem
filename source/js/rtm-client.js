@@ -72,12 +72,14 @@ $("#joinChannelBtn").click(function() {
 
                 // Receive Channel Message
                 channel.on('ChannelMessage', (msg, senderId) => {
-                    console.log("Message received successfully.");
+                    console.log("Message received suc.");
                     var xyz = JSON.parse(msg['text']);
                     // console.log(xyz);
                     var pie = xyz["piece"];
                     var loca = xyz["location"];
                     console.log(pie, loca);
+                    console.log('now trying to move');
+                    xyz1.makemoves(pie, loca);
                 });
             });
 
@@ -116,11 +118,20 @@ class linkBoth {
     constructor(pieces, piecePositions) {
         this.board = new Board(pieces, piecePositions);
     }
-    makemoves(xid, location) {
+    makemoves(xid, loccc) {
         // const x = { "moves": [0], "promoted": false, "updateShape": false, "data": { "id": "G1", "player": "WHITE", "type": "PAWN" } };
         // const y = { row: "3", col: "F" };
-        this.board.pieceMove(x, location);
+        console.log("tried to move");
+        //done till here :)
+
+        this.board.pieceMove(xid, loccc);
+        this.board.piecesUpdate(mi);
+        mi += 1;
+        game.move(xid['data']['id'], loccc, false);
+        view.drawPiecePositions();
+
     }
 }
 
-const xyz = new linkBoth(Utils.getInitialPieces(), initialPositions);
+const xyz1 = new linkBoth(Utils.getInitialPieces(), initialPositions);
+var mi = 0;
