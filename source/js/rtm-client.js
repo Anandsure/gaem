@@ -1,5 +1,5 @@
 // Constants
-var agoraAppId = "a6af85f840ef43108491705e2315a857";
+var agoraAppId = "5738f1f540d34b95a121d0cbad9bf5fe";
 var isLoggedIn = false;
 $("#sendMsgBtn").prop("disabled", true);
 
