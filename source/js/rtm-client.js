@@ -124,9 +124,16 @@ class linkBoth {
         console.log("tried to move");
         //done till here :)
 
+
+        // if (mi % 2 == 0) {
+        //     game.turn = "WHITE";
+        // } else {
+        //     game.turn = "BLACK";
+        // }
+        // mi += 1;
+        console.log(xid);
         this.board.pieceMove(xid, loccc);
         this.board.piecesUpdate(mi);
-        mi += 1;
         game.move(xid['data']['id'], loccc, false);
         view.drawPiecePositions();
 
